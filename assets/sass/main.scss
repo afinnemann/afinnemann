@@ -13,14 +13,14 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-$size-header-width: 35%;
+$size-header-width: 100%;
 $size-header-pad: 4em;
 
 // Breakpoints.
 
 	@include breakpoints((
 		xlarge:  ( 1281px,  800px ),
-		large:   ( 981px,   1280px ),
+		large:   ( 981px,   280px ),
 		medium:  ( 737px,   80px  ),
 		small:   ( 481px,   36px  ),
 		xsmall:  ( null,    80px  ),
