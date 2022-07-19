@@ -147,32 +147,32 @@ input, select, textarea {
 		}
 
 	h1 {
-		font-size: 4em;
+		font-size: 3em;
 		line-height: 1.5em;
 	}
 
 	h2 {
-		font-size: 2.5em;
+		font-size: 1.5em;
 		line-height: 1.5em;
 	}
 
 	h3 {
-		font-size: 2.25em;
+		font-size: 1.25em;
 		line-height: 1.5em;
 	}
 
 	h4 {
-		font-size: 2.1em;
+		font-size: 1.1em;
 		line-height: 1.5em;
 	}
 
 	h5 {
-		font-size: 1.9em;
+		font-size: 0.9em;
 		line-height: 1.5em;
 	}
 
 	h6 {
-		font-size: 1.7em;
+		font-size: 0.7em;
 		line-height: 1.5em;
 	}
 
