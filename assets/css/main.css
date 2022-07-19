@@ -2997,8 +2997,8 @@ input, select, textarea {
 		/* Header */
 
 			#header {
-				padding: 6em 3em 3em 3em;
-				width: 30%;
+				padding: 0em 0em 0em 0em;
+				width: 100%;
 			}
 
 				#header h1 {
