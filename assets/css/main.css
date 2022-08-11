@@ -3026,10 +3026,10 @@ input, select, textarea {
 		/* Main */
 
 			#main {
-				margin-left: 10%;
+				margin-left: 20%;
 				max-width: none;
 				padding: 6em 3em 3em 3em;
-				width: calc(100% - 10%);
+				width: calc(100% - 20%);
 			}
 
 	}
