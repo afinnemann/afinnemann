@@ -1,1 +1,28 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="Content-Style-Type" content="text/css" /><meta name="description" content="Aspose" /><meta name="generator" content="Aspose.Words for .NET 22.7.0" /><title>Aspose</title></head><body style="font-family:'Times New Roman'; font-size:12pt"><div><p style="margin-top:96.05pt; margin-left:16.95pt; margin-bottom:0pt; text-align:justify; line-height:12.05pt"><span style="font-size:11pt">mistyrosergb1.0,</span><span style="font-size:11pt; letter-spacing:5.65pt"> </span><span style="font-size:11pt">0.89,</span><span style="font-size:11pt; letter-spacing:1.5pt"> </span><span style="font-size:11pt">0.88</span></p><p style="margin-top:0.05pt; margin-bottom:0pt; text-indent:16.95pt; line-height:13.5pt"><span style="font-size:11pt">technicalboxthplop</span><span style="font-size:11pt; letter-spacing:6.7pt"> </span><span style="font-size:11pt">technicalboxTechnical</span><span style="font-size:11pt; letter-spacing:6.7pt"> </span><span style="font-size:11pt">box</span><span style="font-size:11pt; letter-spacing:0.6pt"> </span><span style="font-size:11pt">technicalboxlinecolor=black, outerlinewidth=2pt,</span><span style="font-size:11pt; letter-spacing:9.9pt"> </span><span style="font-size:11pt">roundcorner=20pt,</span><span style="font-size:11pt; letter-spacing:8.75pt"> </span><span style="font-size:11pt">innertopmargin=nerbottommargin=nerrightmargin=20pt, innerleftmargin=20pt,</span><span style="font-size:11pt; letter-spacing:10.6pt"> </span><span style="font-size:11pt">backgroundcolor=mistyrose</span></p><p style="margin-top:559.8pt; margin-left:176.6pt; margin-bottom:0pt; text-align:justify; line-height:12.05pt"><span style="font-size:11pt">1</span></p></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>What's up with geom_smooth and additive models?</title>
+</head>
+<body>
+	<h1>What's up with <code>geom_smooth</code> and additive models?</h1>
+	<section>
+		<h2>Introduction</h2>
+		<p>If you have ever wondered what <code>geom_smooth</code><sup><a href="#fn1" id="ref1">1</a></sup> actually does or been baffled by <i>generalised additive models</i> (GAMs) then this blog post is for you. It is not a comprehensive introduction but intended as an intuition-building stepping-stone into the more advanced literature. Michael Clark has written an elegant and more in-depth introductory blog<sup><a href="#fn2" id="ref2">2</a></sup> while Simon Wood has written the bible <sup><a href="#fn3" id="ref3">3</a></sup>. Be warned, like the new testament the book of Wood is mostly in Greek... </p>
+		<h2>Blog structure</h2>
+		<p>The blog first introduces and compares GAMs to its main competitor, polynomial regression. From there we proceed with some concrete examples where we manually replicate the functionality of <code>geom_smooth</code> and <em>mgcv</em>. Lastly, we cover the central topic of penalised estimation.</p>
+	</section>
+	<section>
+		<h2>What are generalised additive models?</h2>
+		<p>Generalised additive models (GAMs) are statistical models specialized in detecting highly non-linear trends in data. In this regard, they are similar to polynomial regression which can be regarded as their main "competitor". </p>
+		<p>Both polynomials and GAMs perform a <i>basis expansion</i> to detect non-linear patterns. The basis is our measured variable <i>x</i> which we expand with additional predictors to enable a non-linear fit. Formally, polynomial regression and additive models share this basic setup.</p>
+	</section>
+	<footer>
+		<hr>
+		<ol>
+			<li id="fn1"><a href="#ref1">↩</a> A plotting function from <code>ggplot2</code> in <span class="proglang">R</span> (<a href="https://CRAN.R-project.org/package=ggplot2">R-ggplot2</a>, <a href="https://www.R-project.org/">R Core Team, 2020</a>).</li>
+			<li id="fn2"><a href="#ref2">↩</a> <a href="https://m-clark.github.io/generalized-additive-models/">https://m-clark.github.io/generalized-additive-models/</a></li>
+			<li id="fn3"><a href="#ref3">↩</a> Wood, S. N. (2017). Generalized Additive Models: An Introduction with R. CRC press.</li>
+		</ol>
+	</footer>
+</body>
+</html>
