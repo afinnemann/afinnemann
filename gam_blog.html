@@ -64,7 +64,7 @@ figcaption {
 <!-- how polynomials work -->
 <p>Both polynomials and GAMs perform a <i>basis expansion</i> to detect non-linear patterns. The basis is our measured variable <em>x</em> which we expand with additional predictors to enable a non-linear fit. Formally, polynomial regression and additive models share this basic setup.</p>
 
-  <img src="images/eq1.png" alt="Equation 1">
+<img src="images/eq1.png" alt="Equation 1" width="300" height="200">
 
 <p><em>y</em> is our outcome variable which we assume to be drawn from a normal distribution with a mean <em>&mu;</em> and standard deviation <em>&sigma;</em>. We model <em>&mu;</em> as a sum over functions <em>f(x)</em>. This is the <i>basis expansion</i>. The parameter <em>k</em> controls the extend of the basis expansion and <em>&beta;<sub>i</sub></em> is a vector of associated coefficients. By setting <em>f(x) = x<sup>i</sup></em> we have polynomial regression. In this cases <em>k</em> controls which polynomial order we are estimating. We later see how <em>f<sub>i</sub>(x)</em> works differently for GAMs.</p>
 
