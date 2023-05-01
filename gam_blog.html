@@ -52,8 +52,39 @@ figcaption {
 <section>
 <h2>Introduction</h2>
 <p>If you have ever wondered what <code>geom_smooth</code><sup><a href="#fn1" id="ref1">(Smith, 2010)</a></sup> actually does or been baffled by <i>generalised additive models</i> (GAMs) then this blog post is for you. It is not a comprehensive introduction but intended as an intuition-building stepping-stone into the more advanced literature. Michael Clark has written an elegant and more in-depth introductory blog<sup><a href="https://m-clark.github.io/generalized-additive-models/" id="ref2">(Clark, n.d.)</a></sup> while Simon Wood has written the bible <sup><a href="#fn3" id="ref3">(Wood, 2017)</a></sup>. Be warned, like the new testament the book of Wood is mostly in Greek...</p>
+
   
+  <!-- Blog structure -->
+<p>The blog first introduces and compares GAMs to its main competitor, polynomial regression. From there we proceed with some concrete examples where we manually replicate the functionality of <code>geom_smooth</code> and <span class="pkg">mgcv</span>. Lastly, we cover the central topic of penalised estimation.</p>
+
+<h2>What are generalised additive models?</h2>
+
+<p>Generalised additive models (GAMs) are statistical models specialized in detecting highly non-linear trends in data. In this regard, they are similar to polynomial regression which can be regarded as their main "competitor". </p>
+
+<!-- how polynomials work -->
+<p>Both polynomials and GAMs perform a <i>basis expansion</i> to detect non-linear patterns. The basis is our measured variable <em>x</em> which we expand with additional predictors to enable a non-linear fit. Formally, polynomial regression and additive models share this basic setup.</p>
+
   <img src="images/eq1.png" alt="Equation 1">
+
+<p><em>y</em> is our outcome variable which we assume to be drawn from a normal distribution with a mean <em>&mu;</em> and standard deviation <em>&sigma;</em>. We model <em>&mu;</em> as a sum over functions <em>f(x)</em>. This is the <i>basis expansion</i>. The parameter <em>k</em> controls the extend of the basis expansion and <em>&beta;<sub>i</sub></em> is a vector of associated coefficients. By setting <em>f(x) = x<sup>i</sup></em> we have polynomial regression. In this cases <em>k</em> controls which polynomial order we are estimating. We later see how <em>f<sub>i</sub>(x)</em> works differently for GAMs.</p>
+
+<p>A central difference between GAMs and polynomials is that polynomials do <i>global</i> estimation. Essentially this means that, for instance, the data points at <em>x &lt; 2</em> will affect the fit at <em>x &gt; 10</em>. This global property is easy to see for linear models. Like a seesaw, we cannot change the slope at <em>x &lt; 2</em> without changing it at <em>x &gt; 10</em>. The same holds for polynomial regression. GAMs work locally and are more flexible. In the context of GAMs <em>k</em> controls how many bins we want to carve the predictor variable up into. In GAM vocabulary the points separating each bin are called <i>knots</i> and <em>k</em> is then the number of knots. GAMs fit a model to each bin - hence the local fit. These local models are then added together to obtain a single statistical model. Let us illustrate what this means.</p>
+
+<p>All code for this example can be found at XXX. For our simulation we first need some data. In this simple example we consider an outcome <em>y</em> and predictor <em>x</em>.</p>
+
+<pre><code>n &lt;- 200
+x &lt;- runif(n)
+true &lt;- 4*x + 3*x<sup>2</sup> - 3*x<sup>3</sup> - 6*x<sup>4</sup>
+y &lt;- rnorm(n, true, 1.5) 
+d &lt;- data.frame(x,y,true) 
+</code></pre>
+
+<figure>
+    <img src="notes_pictures/true+geom.pdf" alt="Figure of simulated data points and a non-linear function">
+    <figcaption>200 data points (dots) simulated from a non-linear function (yellow line). The red line is the default output of <code>geom_smooth</code>. We see it recovers the relationship well.</figcaption>
+    <label for="fig:true"></label>
+</figure>
+
   
   
   
