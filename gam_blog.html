@@ -52,36 +52,15 @@ figcaption {
 <section>
 <h2>Introduction</h2>
 
-<p>If you have ever wondered what <code>geom_smooth</code><sup><a href="#fn1" id="ref1">1</a></sup> actually does or been baffled by <i>generalised additive models</i> (GAMs) then this blog post is for you. It is not a comprehensive introduction but intended as an intuition-building stepping-stone into the more advanced literature. Michael Clark has written an elegant and more in-depth introductory blog<sup><a href="#fn2" id="ref2">2</a></sup> while Simon Wood has written the bible <sup><a href="#fn3" id="ref3">3</a></sup>. Be warned, like the new testament the book of Wood is mostly in Greek...</p>
-<!--Blog structure-->
-<h2>Blog structure</h2>
-<p>The blog first introduces and compares GAMs to its main competitor, polynomial regression. From there we proceed with some concrete examples where we manually replicate the functionality of <code>geom_smooth</code> and <em>mgcv</em>. Lastly, we cover the central topic of penalised estimation.</p>
-<h2>What are generalised additive models?</h2>
-<p>Generalised additive models (GAMs) are statistical models specialized in detecting highly non-linear trends in data. In this regard, they are similar to polynomial regression which can be regarded as their main "competitor".</p>
-<!--how polynomials work-->
-<p>Both polynomials and GAMs perform a <i>basis expansion</i> to detect non-linear patterns. The basis is our measured variable $x$ which we expand with additional predictors to enable a non-linear fit. Formally, polynomial regression and additive models share this basic setup.</p>
-
-</section>
-
-<!-- Image -->
-<figure>
-  <img src="images\eq1.png" alt="An example equation.">
-  <figcaption>Figure 1: An example equation.</figcaption>
-</figure>
-
-</body>
-</html>
-<p>$y$ is our outcome variable which we assume to be drawn from a normal distribution with a mean $\mu$ and standard deviation $\sigma$. We model $\mu$ as a sum over functions $f(x)$. This is the <i>basis expansion</i>. The parameter $k$ controls the extend of the basis expansion and $\beta_i$ is a vector of associated coefficients. By setting $f(x) = x^i$ we have polynomial regression. In this cases $k$ controls which polynomial order we are estimating. We later see how $f_i(x)$ works differently for GAMs.</p>
-<p>A central difference between GAMs and polynomials is that polynomials do <i>global</i> estimation. Essentially this means that, for instance, the data points at $x<2$ will affect the fit at $x>10$. This global property is easy to see for linear models. Like a seesaw, we cannot change the slope at $x<2$ without changing it at $x>10$. The same holds for polynomial regression. GAMs work locally and are more flexible. In the context of GAMs $k$ controls how many bins we want to carve the predictor variable up into. In GAM vocabulary the points separating each bin are called <i>knots</i> and $k$ is then the number of knots. GAMs fit a model to each bin - hence the local fit. These local models are then added together to obtain a single statistical model. Let us illustrate what this means.</p>
-<p>All code for this example can be found at XXX. For our simulation we first need some data. In this simple example we consider an outcome $y$ and predictor $x$.</p>
-<pre><code>n &lt;- 200
-x &lt;- runif(n)
-true &lt;- 4*x + 3*x^2 - 3*x^3 - 6*x^4
-y &lt;- rnorm(n, true, 1.5) 
-d &lt;- data.frame(x,y,true) 
-</code></pre>
-<figure>
-    <img src="notes_pictures/true+geom.png" alt="200 data points (dots) simulated from a non-linear function (yellow line). The red line is the default output of `geom_smooth`. We see it recovers the relationship well." width="560" height="400">
-    <figcaption>200 data points (dots) simulated from a non-linear function (yellow line). The red line is the default output of <code>geom_smooth</code>. We see it recovers the relationship well.</figcaption>
-    <label for="fig:true"></label>
-</figure>
+<p>If you have ever wondered what <code>geom_smooth</code><sup><a href="#fn1" id="ref1">1</a></sup> actually does or been baffled by <i>generalised additive models</i> (GAMs) then this blog post is for you. It is not a comprehensive introduction but intended as an intuition-building stepping-stone into the more advanced literature. Michael Clark has written an elegant and more in-depth introductory blog<sup><a href="https://m-clark.github.io/generalized-additive-models/" id="ref2">2</a></sup> while Simon Wood has written the bible (<span class="citeproc-not-found">(Wood, 2017)</span>). Be warned, like the new testament the book of Wood is mostly in Greek...</p>
+<p>Footnotes:</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn1">
+      <p>A plotting function from <code>ggplot2</code> in <span class="proglang">R</span> (<span class="cite">R-ggplot2</span>; <span class="cite">(R Core Team, 2020)</span>).</p>
+    </li>
+    <li id="fn2">
+      <p><a href="https://m-clark.github.io/generalized-additive-models/">https://m-clark.github.io/generalized-additive-models/</a></p>
+    </li>
+  </ol>
+</div>
