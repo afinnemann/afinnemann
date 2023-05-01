@@ -70,3 +70,17 @@ figcaption {
 
 </body>
 </html>
+<p>$y$ is our outcome variable which we assume to be drawn from a normal distribution with a mean $\mu$ and standard deviation $\sigma$. We model $\mu$ as a sum over functions $f(x)$. This is the <i>basis expansion</i>. The parameter $k$ controls the extend of the basis expansion and $\beta_i$ is a vector of associated coefficients. By setting $f(x) = x^i$ we have polynomial regression. In this cases $k$ controls which polynomial order we are estimating. We later see how $f_i(x)$ works differently for GAMs.</p>
+<p>A central difference between GAMs and polynomials is that polynomials do <i>global</i> estimation. Essentially this means that, for instance, the data points at $x<2$ will affect the fit at $x>10$. This global property is easy to see for linear models. Like a seesaw, we cannot change the slope at $x<2$ without changing it at $x>10$. The same holds for polynomial regression. GAMs work locally and are more flexible. In the context of GAMs $k$ controls how many bins we want to carve the predictor variable up into. In GAM vocabulary the points separating each bin are called <i>knots</i> and $k$ is then the number of knots. GAMs fit a model to each bin - hence the local fit. These local models are then added together to obtain a single statistical model. Let us illustrate what this means.</p>
+<p>All code for this example can be found at XXX. For our simulation we first need some data. In this simple example we consider an outcome $y$ and predictor $x$.</p>
+<pre><code>n &lt;- 200
+x &lt;- runif(n)
+true &lt;- 4*x + 3*x^2 - 3*x^3 - 6*x^4
+y &lt;- rnorm(n, true, 1.5) 
+d &lt;- data.frame(x,y,true) 
+</code></pre>
+<figure>
+    <img src="notes_pictures/true+geom.png" alt="200 data points (dots) simulated from a non-linear function (yellow line). The red line is the default output of `geom_smooth`. We see it recovers the relationship well." width="560" height="400">
+    <figcaption>200 data points (dots) simulated from a non-linear function (yellow line). The red line is the default output of <code>geom_smooth</code>. We see it recovers the relationship well.</figcaption>
+    <label for="fig:true"></label>
+</figure>
