@@ -64,7 +64,9 @@ figcaption {
 <!-- how polynomials work -->
 <p>Both polynomials and GAMs perform a <i>basis expansion</i> to detect non-linear patterns. The basis is our measured variable <em>x</em> which we expand with additional predictors to enable a non-linear fit. Formally, polynomial regression and additive models share this basic setup.</p>
 
-<img src="images/eq1.png" alt="Equation 1" width="100" height="100">
+<div style="text-align:center">
+    <img src="images/eq1.png" alt="Equation 1" width="120" height="120">
+</div>
 
 <p><em>y</em> is our outcome variable which we assume to be drawn from a normal distribution with a mean <em>&mu;</em> and standard deviation <em>&sigma;</em>. We model <em>&mu;</em> as a sum over functions <em>f(x)</em>. This is the <i>basis expansion</i>. The parameter <em>k</em> controls the extend of the basis expansion and <em>&beta;<sub>i</sub></em> is a vector of associated coefficients. By setting <em>f(x) = x<sup>i</sup></em> we have polynomial regression. In this cases <em>k</em> controls which polynomial order we are estimating. We later see how <em>f<sub>i</sub>(x)</em> works differently for GAMs.</p>
 
@@ -85,7 +87,38 @@ d &lt;- data.frame(x,y,true)
     <label for="fig:true"></label>
 </figure>
 
-  
+  Figure \ref{fig:true} shows the true non-linear relation (yellow) and a sample of 200 data points. The red line visualises the output of <code>geom_smooth</code> which recovers the true function well. Computationally <code>geom_smooth</code>  is estimated via <code>mgcv::gam</code><sup><a href="#fn1" id="ref1">1</a></sup>. The default setting of <code>geom_smooth</code> is to use a cubic regression spline as its basis function and <code>k=10</code> knots. In other words, <code>geom_smooth</code> spreads 10 cubic functions, <code>f(x) = x + x^2 + x^3</code>, across our predictor variable. In Figure \ref{fig:basis} we visualise this basis expansion. The knots are the points where one basis function equals 1 while the others equal zero. This setup makes GAMs localised as the fit of the orange colored basis functions will not depend on the data in area associated with purple basis functions.
+
+<img src="images/basis.pdf" alt="Figure 1: A 10 knot cubic regression spline basis expansion." width="500px">
+
+The next step is to evaluate each participant on each basis function <code>f_i(x)</code>. We can do this in R with <code>smoothCon</code> and obtain a <code>n</code> by <code>k</code> matrix (named <code>splines</code> in the code below).
+
+<pre>
+splines <- smoothCon(s(x, #predictor
+                  bs="cr", #cubic regression spline
+                  k = 10), #10 knots
+                data=d)[[1]]$X
+</pre>
+
+The object <code>splines</code> can then be used with <code>lm</code> to estimate  <code>β</code>.<sup><a href="#fn2" id="ref2">2</a></sup> Once we know <code>β</code> we can multiply each basis function with its coefficient and sum everything to achieve our prediction.
+
+<pre>
+lmMod = lm(d$y ~ .-1, data= as.data.frame(splines)) 
+#".-1" means use all variables in the data and omit adding intercept
+
+bscoefs = coef(lmMod) #extracting coefficients
+
+#multiplying basis functions with coefficients
+bsScaled = sweep(splines, 2, bscoefs,`*`) %>% as.data.frame()  
+
+#adding everything -> prediction
+bsScaled$sum_spline  <- colSums(t(bsScaled)) 
+</pre>
+
+Figure \ref{fig:fitted} shows how the coefficients modulate the basis functions and the resulting overall model in red. In Figure \ref{fig:eval} I compare our manually fitted GAM to <code>geom_smooth</code>. As expected, their general pattern is similar, however, our model is much more "wiggly". This difference leads <i>penalised estimation</i> of GAMs.
+
+<img src="notes_pictures/fitted_basis.png" alt="Figure 2: The 10 basis function multiplied by their coefficients obtained by fitting them to an outcome variable. The red line is the sum of the basis functions and represent the prediction of our model." width="500px">
+
   
   
 <p>Footnotes:</p>
